@@ -1,0 +1,4 @@
+{% if list_question %}
+	<ul>
+	{% for l in list_question %}
+		<li><a href="/polls/{{ l.id }}/">{{ l.question_text }}</a></li>
