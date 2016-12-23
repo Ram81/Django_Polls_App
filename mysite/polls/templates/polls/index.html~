@@ -1,4 +1,10 @@
 {% if list_question %}
 	<ul>
 	{% for l in list_question %}
-		<li><a href="/polls/{{ l.id }}/">{{ l.question_text }}</a></li>
+<!--		<li><a href="/polls/{{ l.id }}/">{{ l.question_text }}</a></li>-->
+		<li><a href="{% url 'detail' l.id %}">{{ l.question_text }}</a></li>
+	{% endfor %}
+	</ul>
+{% else %}
+	<h3>No Polls Available!<h3>
+{% endif %}
