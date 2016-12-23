@@ -2,7 +2,8 @@
 	<ul>
 	{% for l in list_question %}
 <!--		<li><a href="/polls/{{ l.id }}/">{{ l.question_text }}</a></li>-->
-		<li><a href="{% url 'detail' l.id %}">{{ l.question_text }}</a></li>
+
+		<li><a href="{% url 'polls:detail' l.id %}">{{ l.question_text }}</a></li> <!-- Using URL Namespaces -->
 	{% endfor %}
 	</ul>
 {% else %}
