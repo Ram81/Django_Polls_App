@@ -13,11 +13,30 @@ def create_question(question_text,days):
 	return Question.objects.create(question_text=question_text,pub_date=t)
 
 class QuestionViewTest(TestCase):
+
 	def test_index_view_with_no_question(self):
 		response=self.client.get(reverse('polls:index'))
 		self.assertEqual(response.status_code,200)
 		self.assertContains(response,"No Polls Available")
 		self.assertQuerysetEqual(response.context['list_question'],[])
+
+	def test_index_view_with_a_past_question(self):
+		create_question(question_text='Past Question',days=-30)
+		response=self.client.get(reverse('polls:index'))
+		self.assertQuerysetEqual(response.context['list_question'],['<Question> Past Question'])
+
+	def test_index_view_with_a_future_question(self):
+		create_question(question_text='Future Question',days=30)
+		response=self.client.get(reverse('polls:index'))
+		self.assertContains(response,'No Polls Available')
+		self.assertQuerysetEqual(response.context['list_question'],[])
+
+	def test_index_view_with_future_and_past_question(self):
+		create_question(question_text='Future Question',days=30)
+		create_question(question_text='Past Question',days=-30)
+		response=self.client.get(reverse('polls:index'))
+		self.assertQuerysetEqual(response.context['list_question'],['<Question> Past Question'])
+
 
 class QuestionMethodTest(TestCase):
 	
