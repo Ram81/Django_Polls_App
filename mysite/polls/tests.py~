@@ -3,9 +3,13 @@ import datetime
 from django.test import TestCase
 from django.utils import timezone
 
+from django.urls import reverse
 from .models import Question
 
 # Create your tests here.
+
+def create_question(question_text,days):
+	
 
 class QuestionMethodTest(TestCase):
 	
@@ -17,4 +21,4 @@ class QuestionMethodTest(TestCase):
 	def test_was_published_with_recent_question(self):
 		t=timezone.now()-datetime.timedelta(hours=1)
 		recent_date=Question(pub_date=t)
-		self.assertIs(recent_date.was_published_recently(),true)
+		self.assertIs(recent_date.was_published_recently(),True)
