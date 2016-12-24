@@ -8,6 +8,24 @@ from .models import Question
 
 # Create your tests here.
 
+def create_question(question_text,days):
+	t=timezone.now+datetime.timedelta(days=days)
+	return Question.objects.create(question_text=question_text,pub_date=t)
+
+class QuestionViewTest(TestCase):
+
+	def test_index_view_with_no_question(self):
+		response=self.client.get(reverse('polls:index'))
+		self.assertEqual(response.status_code,200)
+		self.assertContains(response,"No Polls Available")
+		self.assertQuerysetEqual(response.context['list_question'],[])
+
+	def test_index_view_with_a_past_question(self):
+		create_question(question_text='Past Question',days=-30)
+		response=self.client.get(reverse('polls:index'))
+		self.assertQuerysetEqual(response.context['list_question'],['<Question> Past Question'])
+
+
 class QuestionMethodTest(TestCase):
 	
 	def test_was_published_recently_with_old_question(self):
