@@ -3,7 +3,7 @@ from .models import Question,choice
 
 # Register your models here.
 
-class ChoiceInline(admin.StackedInline):
+class ChoiceInline(admin.TabularInline):
 	model=choice
 	extra=3
 
