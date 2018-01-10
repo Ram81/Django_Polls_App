@@ -1,0 +1,61 @@
+<html>
+<head>
+	<style>
+		table {
+		    width:100%;
+		}
+		table, th, td {
+		    border: 1px solid black;
+		    border-collapse: collapse;
+		}
+		th, td {
+		    padding: 5px;
+		    text-align: left;
+		}
+		</style>
+</head>
+<body>
+	<h2>Dashboard</h2>
+	<a href="{% url 'dashboard:add' %}">Add Interview</a>
+    <br/>
+    <br/>
+{% if interviews %}
+    <table>
+    	<tr>
+    		<th>Interviewer</th>
+    		<th>Candidate</th>
+    	    <th>Start-Time</th>
+    	    <th>End-Time Date</th>
+    	</tr>
+    	{% for key, dt in interviews.items %}
+    	<tr>
+    		<th> {{ key }} </th>
+    	</tr>
+    	    {% for i in dt %}
+            <form action="{% url 'dashboard:choice' i.id %}" method="POST">
+                {% csrf_token %}
+    	        <tr>
+    	            <td>{{ i.interviewer_email }}</td>
+    	            <td>{{ i.candidate_email }}</td>
+    	            <td>{{ i.get_start_time }}</td>
+    	            <td>{{ i.get_end_time }}</td>
+                    <td style="border: none;">
+                        <input type="submit" name="Delete" value="Delete">
+                        <input type="submit" name="Edit" value="Edit">
+                    </td>
+    	        </tr>
+            </form>
+    	    {% endfor %}
+    	{% endfor %}
+        
+    </table>
+{% else %}
+    <ul>
+    	<li>No interviews scheduled</li>
+    </ul>
+{% endif %}
+<div>
+    <p><b>Dashboard Status:</b> {{ status }}</p>
+</div>
+</body>
+</html>
