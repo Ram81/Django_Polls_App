@@ -8,6 +8,7 @@ class CreateInterview(forms.Form):
 	end_time = forms.TimeField(label='Interview End Time', widget=forms.TimeInput(format='%H:%M', attrs={'placeholder': 'hh:mm format'}))
 	date = forms.DateField(widget=forms.SelectDateWidget(years=[y for y in range(2018, 2025)]), label='Interview Date')
 
+	# check for start time less than end time of interview
 	#def clean_end_time(self):
 	#	if (self.cleaned_data['start_time']>self.cleaned_data['end_time']):
 	#		raise forms.ValidationError("Start time must be before end time")
@@ -21,6 +22,7 @@ class EditInterview(forms.Form):
 	end_time = forms.TimeField(label='Interview End Time', widget=forms.TimeInput(format='%H:%M', attrs={'placeholder': 'hh:mm format'}))
 	date = forms.DateField(widget=forms.SelectDateWidget(years=[y for y in range(2018,2025)]), label='Interview Date')
 
+    # check for start time less than end time of interview
 	#def clean_end_time(self):
 	#	if (self.cleaned_data['start_time']>self.cleaned_data['end_time']):
 	#		raise forms.ValidationError("Start time must be before end time")
