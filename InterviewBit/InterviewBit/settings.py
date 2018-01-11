@@ -75,11 +75,9 @@ WSGI_APPLICATION = 'InterviewBit.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL')
+        default='sqlite:////{0}'.format(os.path.join(BASE_DIR, 'db.sqlite3'))
     )
 }
 
