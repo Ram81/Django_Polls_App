@@ -4,9 +4,10 @@ from __future__ import unicode_literals
 from django.db import models
 
 # Create your models here.
-class Interview(models.Model):
-	interviewer_email = models.EmailField(max_length=200)
+class User(models.Model):
 	candidate_email = models.EmailField(max_length=200)
+
+class Interview(models.Model):
 	start_time = models.TimeField('Interview start time')
 	end_time = models.TimeField('Interview end time')
 	date = models.DateField('Interview Date')
@@ -19,3 +20,8 @@ class Interview(models.Model):
 
 	def get_end_time(self):
 		return self.end_time.strftime('%H:%M:%S')
+
+class User_Interview(models.Model):
+	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+	flag = models.BooleanField(default=True)
+	interview_id = models.ForeignKey(Interview, on_delete=models.CASCADE)

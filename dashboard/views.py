@@ -43,7 +43,12 @@ def add(request):
         form = CreateInterview(request.POST)
         if (form.is_valid()):
             interviewer_email = form.cleaned_data['interviewer_email']
-            candidate_email = form.cleaned_data['candidate_email']
+            for i in interviewer_email:
+                print(i)
+            candidate_email = form.fields['candidate_email']
+            print('user')
+            for i in candidate_email.choices:
+                print(i[0],i[1])
             start_time = form.cleaned_data['start_time']
             end_time = form.cleaned_data['end_time']
             date_ = form.cleaned_data['date']
